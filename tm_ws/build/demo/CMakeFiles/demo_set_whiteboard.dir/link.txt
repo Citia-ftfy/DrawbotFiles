@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/demo_set_whiteboard.dir/src/demo_set_positions2.cpp.o  -o /home/inewh/tm_ws/devel/lib/demo/demo_set_whiteboard 

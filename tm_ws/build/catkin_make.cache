@@ -1,0 +1,2 @@
+demo:tm12-moveit_config:tm12x-moveit_config:tm14-moveit_config:tm14x-moveit_config:tm5-700-moveit_config:tm5-900-moveit_config:tm5x-700-moveit_config:tm5x-900-moveit_config:tm_demo:tm_description:tm_driver:tm_gazebo:tm_image:tm_msgs:ui_for_debug_and_demo
+-DCATKIN_DEVEL_PREFIX=/home/inewh/tm_ws/devel -DCMAKE_INSTALL_PREFIX=/home/inewh/tm_ws/install -G Unix Makefiles

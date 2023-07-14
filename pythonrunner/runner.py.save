@@ -1,0 +1,107 @@
+#THIS FILE IS TO RUN TM_DRIVER CPP COMMANDS - Isaac Merwin June 2023
+import subprocess
+import time
+import argparse
+import random as rd
+import magnetControl as mC
+#Parse args
+parser = argparse.ArgumentParser()
+parser.add_argument('-r','--random',action='store_true',default=False)
+parser.add_argument('-hp','--home',action='store_true',default=False)
+parser.add_argument('-gp','--gondola',action='store_true',default=False)
+parser.add_argument('-wave','--wave',action='store_true',default=False)
+parser.add_argument('-sp','--setpos', type=float, nargs=6, default=[0,0,0,0,0,0])
+args = parser.parse_args()
+j1 = str(args.setpos[0])
+j2 = str(args.setpos[1])
+j3 = str(args.setpos[2])
+j4 = str(args.setpos[3])
+j5 = str(args.setpos[4])
+j6 = str(args.setpos[5])
+#start rand gen
+rd.seed(a=None, version=2)
+
+def robo_sp(j1,j2,j3,j4,j5,j6):
+    print("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    output = subprocess.getoutput("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    print(output)
+
+def robo_random():
+    j1 = str(j1)
+    j2 = str(j2)
+    j3 = str(j3)
+    j4 = str(j4)
+    j5 = str(j5)
+    j6 = str(j6)
+    print("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    output = subprocess.getoutput("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    print(output)
+    time.sleep(6)
+    j1 = rd.choice([1])*rd.random()
+    j2 = rd.choice([1])*rd.random()
+    j3 = rd.choice([-1,1])*rd.random()
+    #j4 = rd.choice([-1,1])*rd.random()
+    #j5 = rd.choice([-1,1])*rd.random()
+    #j6 = rd.choice([-1,1])*rd.random()
+    
+    
+def robo_wave():
+    j1 = 1.58
+    j1 = str(j1)
+    j2 = str(j2)
+    j3 = str(j3)
+    j4 = str(j4)
+    j6 = str(j6)
+    print("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    output = subprocess.getoutput("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    print(output)
+    time.sleep(18)
+    j2 = -1.58
+    j3 = 1.58
+    j4 = 1.58
+    j6 = 1.58
+    j1 = str(j1)
+    j2 = str(j2)
+    j3 = str(j3)
+    j4 = str(j4)
+    j6 = str(j6)
+    print("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    output = subprocess.getoutput("rosrun demo demo_set_positions "+j1+" "+j2+" "+j3+" "+j4+" "+j5+" "+j6)
+    print(output)
+    time.sleep(18)
+    j2 = 1.58
+    j3 = -1.58
+    j4 = -1.58
+    j6 = -1.58
+
+
+def robo_magnet(magIsOn):
+    if(magIsOn):
+        mC.set_high()
+    else:
+        mC.set_low()
+#TODO NOT TRUE
+
+test_bool = True
+
+while(test_bool):
+    robo_magnet(False)
+    if(args.home):
+        print("rosrun demo demo_set_home")
+        output = subprocess.getoutput("rosrun demo demo_set_home")
+        print(output)
+    if(args.gondola):
+        print("rosrun demo demo_set_gondola")
+        output = subprocess.getoutput("rosrun demo demo_set_gondola")
+        print(output)
+    if(not args.gondola and not args.home and not args.random and not args.wave):
+        robo_sp(j1,j2,j3,j4,j5,j6)
+    if(args.random):
+        robo_random()
+    time.sleep(2)
+
+
+
+
+
+
